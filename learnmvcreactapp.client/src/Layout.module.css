@@ -1,0 +1,16 @@
+.navContainer{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navText{
+  margin-right: 15px;
+}
