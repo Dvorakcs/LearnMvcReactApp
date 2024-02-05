@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LearnMvcReactApp.Server.Models;
+using LearnMvcReactApp.Server.Repositories.IRepositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LearnMvcReactApp.Server.Controllers
 {
-    public class ProdutosController : ControllerBase
+    [Route("api/[controller]")]
+    public class ProdutosController : GenericController<Produtos>
     {
-        public IActionResult Index()
+        public ProdutosController(IGenericsRepository<Produtos> repository) : base(repository)
         {
-           
+        }
+
+        protected override int GetEntityId(Produtos entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void UpdateEntity(Produtos existingEntity, Produtos newEntity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
