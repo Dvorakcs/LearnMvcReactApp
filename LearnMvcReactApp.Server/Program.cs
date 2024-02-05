@@ -1,30 +1,45 @@
+using LearnMvcReactApp.Server.Dados;
+using LearnMvcReactApp.Server.Models;
+using LearnMvcReactApp.Server.Repositories.IRepositories;
+using LearnMvcReactApp.Server.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Adiciona serviços ao contêiner.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<MyDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+// Registra o repositório genérico para IGenericsRepository<Produtos>
+builder.Services.AddScoped(typeof(IGenericsRepository<>), typeof(GenericsRepository<>));
+
+// Registra a implementação específica para IGenericsRepository<Produtos>
+builder.Services.AddScoped<IProdutosRepository, ProdutosRepository>();
 
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+ConfigureApp(app);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+void ConfigureApp(WebApplication app)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.MapFallbackToFile("/index.html");
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.MapFallbackToFile("/index.html");
 
 app.Run();
