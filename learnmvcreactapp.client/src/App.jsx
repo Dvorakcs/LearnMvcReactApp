@@ -6,14 +6,13 @@ class App extends React.Component {
     render() {
         return (
         <BrowserRouter>
-            
             <Routes>
                 <Route path='/'>
                     <Route path='/produtos' element={<Produtos/>}/>
                 </Route>
             </Routes>
-            
         </BrowserRouter>
+       
         )
     }
 }

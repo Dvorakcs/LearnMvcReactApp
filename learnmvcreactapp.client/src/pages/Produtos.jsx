@@ -1,6 +1,9 @@
 import React from "react";
 import Produto from "../components/Produto";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import ProdutosServices from "../services/ProdutosServices";
+import Style from "./Produtos.module.css"
 class Produtos extends React.Component{
  constructor(props){
   super(props)
@@ -13,24 +16,28 @@ class Produtos extends React.Component{
   try {
     const produtosServices = new ProdutosServices();
     const produtos = await produtosServices.get();
-    this.setState({ produtosServices: produtos.data });
-    // Você também pode usar o setState diretamente dentro do try.
+    if(produtos.data.length > 0) this.setState({ produtosServices: produtos.data });
   } catch (error) {
     console.error('Erro ao obter produtos na página Produtos:', error);
   }
 }
 
-// getDerivedStateFromProps é estático e não pode acessar o 'this' da instância da classe
-static getDerivedStateFromProps(nextProps, prevState) {
-  // Retorna um objeto representando as alterações de estado que você deseja realizar
-  return null;
-}
   componentDidUpdate() {
     
   }
   render() {
     return (
-      <div className="containerProdutos">
+      <div className={Style.container}>
+        
+         
+        {this.state.produtosServices &&
+          <div>
+          <input placeholder="Pesquisar Produtos"/>
+          <FontAwesomeIcon className={Style.icon} icon={faMagnifyingGlass}/>
+         </div>
+        }
+        <div className={Style.containerProdutos}>
+          
         { 
            this.state.produtosServices ==null ? 
            <h1>Carregando Produtos</h1> :
@@ -43,6 +50,7 @@ static getDerivedStateFromProps(nextProps, prevState) {
             );
           })
         }
+      </div>
       </div>
     );
   }

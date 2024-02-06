@@ -1,6 +1,6 @@
 ﻿namespace LearnMvcReactApp.Server.Repositories.IRepositories
 {
-    public interface IUsuariosRepository
+    public interface IProdutosRepository
     {
     }
 }
