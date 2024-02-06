@@ -1,9 +1,11 @@
 ﻿using LearnMvcReactApp.Server.Models;
 using LearnMvcReactApp.Server.Repositories.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnMvcReactApp.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class ProdutosController : GenericController<Produtos>
     {

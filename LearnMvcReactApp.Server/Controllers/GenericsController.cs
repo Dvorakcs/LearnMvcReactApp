@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-public abstract class GenericController<T> : ControllerBase where T : class
+public abstract class GenericController<T, TRepository> : ControllerBase
+    where T : class
+    where TRepository : IGenericsRepository<T>
 {
-    private readonly IGenericsRepository<T> _repository;
+    public readonly TRepository _repository;
 
-    public GenericController(IGenericsRepository<T> repository)
+    public GenericController(TRepository repository)
     {
         _repository = repository;
     }
