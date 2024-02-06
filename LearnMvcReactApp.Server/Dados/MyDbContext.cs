@@ -12,5 +12,6 @@ namespace LearnMvcReactApp.Server.Dados
         }
 
         public DbSet<Produtos> Produtos { get; set; }
+        public DbSet<Usuarios> Usuarios { get; set; }
     }
 }
