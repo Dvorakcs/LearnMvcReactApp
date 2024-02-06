@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearnMvcReactApp.Server.Controllers
 {
     [Route("api/[controller]")]
-    public class ProdutosController : GenericController<Produtos>
+    public class ProdutosController : GenericController<Produtos, IGenericsRepository<Produtos>>
     {
         public ProdutosController(IGenericsRepository<Produtos> repository) : base(repository)
         {
